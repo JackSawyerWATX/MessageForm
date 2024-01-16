@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Say Hello!</h1>
+    <form id="signupForm">
+        <p>
+            <label for="name">What's Your Name: </label>
+            <input type="text" id="name" name="name" required class="border p-1" rows="1">
+        </p>
+        <p>
+            <label for="email">What's Your Email: </label>
+            <input type="email" id="email" name="email" required class="border p-1" rows="1">
+        </p>
+        <p>
+            <label for="message">What's Your Message: </label>
+            <textarea id="message" name="message" class="w-full border p-1" rows="4"></textarea>
+        </p>
+        <p>
+            <input type="button" value="Submit" onclick="submitForm()">
+        </p>
+    </form>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        emailjs.init("b0CK_C22smCz86ew3");
+
+        function submitForm() {
+            var form = document.getElementById("signupForm");
+            var name = form.elements["name"].value;
+            var email = form.elements["email"].value;
+            var message = form.elements["message"].value;
+
+            // Replace 'your_template_id' with your Email.js template ID
+            emailjs.send("default_service", "template_t3pday4", { name: name, email: email, message: message })
+                .then(function (response) {
+                    console.log("Email sent successfully", response);
+                    // Handle success, e.g., show a success message
+                }, function (error) {
+                    console.log("Email failed to send", error);
+                    // Handle error, e.g., show an error message
+                });
+        }
+    </script>
+</body>
+
+</html>
